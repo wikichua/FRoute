@@ -108,5 +108,6 @@ abstract class FRouterFactory
                 }
             }
         }
+        return $path;
     }
 }
