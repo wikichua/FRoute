@@ -1,6 +1,6 @@
 <?php
 
-class FRouter extends RouterFactory
+class FRouter extends FRouterFactory
 {
     protected $params        = [];
     protected $baseFile      = "index.php";
