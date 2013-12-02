@@ -59,6 +59,27 @@ abstract class FRouterFactory
     {
     	$method = "{$method}Routes";
 
+        $path = $this->extractPath($path,$method);
+
+        if(is_callable($this->{$method}[$path]))
+        {
+            $this->controller = '';
+            $this->callback = $this->{$method}[$path];
+            return;
+        }
+
+        if(in_array($path, array_keys($this->{$method})))
+        {
+            list($controller,$callback) = explode('@', $this->{$method}[$path]);
+            $this->controller = $controller;
+            $this->callback = $callback;
+            return;
+        }
+
+    }
+
+    protected function extractPath($path,$method)
+    {
         $s = preg_grep("/(\/{.+})+/i",array_keys($this->{$method}));
         $break_path = explode('/', $path);
         foreach ($s as $possible_path) {
@@ -83,25 +104,9 @@ abstract class FRouterFactory
                 if($check == $count_path)
                 {
                     $this->params = $params;
-                    $path = $possible_path;
+                    return $path = $possible_path;
                 }
             }
         }
-
-        if(is_callable($this->{$method}[$path]))
-        {
-            $this->controller = '';
-            $this->callback = $this->{$method}[$path];
-            return;
-        }
-
-        if(in_array($path, array_keys($this->{$method})))
-        {
-            list($controller,$callback) = explode('@', $this->{$method}[$path]);
-            $this->controller = $controller;
-            $this->callback = $callback;
-            return;
-        }
-
     }
 }
