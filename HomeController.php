@@ -6,18 +6,23 @@ class HomeController
 
 	}
 
+	public function tryme()
+	{
+		echo 'try me? - normal';
+	}
+
 	public function get_tryme()
 	{
-		echo 'try me?';
+		echo 'try me? - restful';
 	}
 
 	public function trypost()
 	{
-		echo 'try post?';
+		echo 'try post? - normal';
 	}
 
 	public function post_try()
 	{
-		echo 'try post?';
+		echo 'try post? - restful';
 	}
 }
